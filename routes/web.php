@@ -4,8 +4,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ForumController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/forum', [ForumController::class, 'index'])->name('forum');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

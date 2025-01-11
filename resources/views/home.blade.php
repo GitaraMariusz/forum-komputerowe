@@ -9,5 +9,19 @@
         <p>
             Join the conversation, ask questions, or help others with your expertise!
         </p>
+
+        <!-- Display the latest threads -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Recent Threads</h2>
+            <div class="space-y-4">
+                @foreach($threads as $thread)
+                    <div class="p-4 border border-gray-200 rounded-md">
+                        <h3 class="text-xl font-semibold">{{ $thread->title }}</h3>
+                        <p class="text-sm text-gray-500">{{ $thread->created_at->diffForHumans() }}</p>
+                        <p class="text-gray-700 mt-2">{{ Str::limit($thread->content, 150) }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 @endsection

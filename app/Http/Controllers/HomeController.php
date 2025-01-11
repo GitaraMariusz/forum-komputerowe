@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         // Get the 5 most recent threads
-        $threads = Thread::latest()->take(5)->get();
+        $threads = Thread::latest()->take(3)->get();
         
         // Get all categories
         $categories = Category::all();

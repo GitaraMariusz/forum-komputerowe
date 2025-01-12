@@ -3,12 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
+use App\Models\Post;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostReportController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/forum', [ForumController::class, 'index'])->name('forum');
@@ -28,6 +32,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/community/{user}/message', [CommunityController::class, 'sendMessage'])->name('community.sendMessage'); // Send a message
 });
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    
+    Route::delete('/user/{user}', [AdminController::class, 'destroyUser'])->name('user.destroy');
+    
+    Route::delete('/post/{post}', [AdminController::class, 'destroyPost'])->name('post.destroy');
+});
 
 Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');

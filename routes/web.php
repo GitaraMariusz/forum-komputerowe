@@ -8,6 +8,8 @@ use App\Http\Controllers\ForumController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/forum', [ForumController::class, 'index'])->name('forum');
+Route::get('/forum/thread/{thread}', [ForumController::class, 'show'])->name('forum.show');
+
 
 Route::prefix('forum')->name('forum.')->group(function () {
     Route::get('/', [ForumController::class, 'index'])->name('index');

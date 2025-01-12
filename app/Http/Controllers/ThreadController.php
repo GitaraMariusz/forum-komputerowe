@@ -34,4 +34,15 @@ class ThreadController extends Controller
 
         return redirect()->route('forum.show', $thread->id);
     }
+    public function destroy($id)
+    {
+        $thread = Thread::findOrFail($id);
+        
+        if (auth()->user()->isAdmin()) {
+            $thread->delete();
+            return redirect()->route('forum.index')->with('success', 'Thread deleted successfully.');
+        }
+
+        return redirect()->route('forum.index')->with('error', 'You do not have permission to delete this thread.');
+    }
 }

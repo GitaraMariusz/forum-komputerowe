@@ -13,11 +13,14 @@ use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostReportController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ThreadController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/forum', [ForumController::class, 'index'])->name('forum');
 Route::get('/forum/thread/{thread}', [ForumController::class, 'show'])->name('forum.show');
 Route::post('/post/{post}/report', [PostReportController::class, 'store'])->name('post.report');
+Route::delete('/thread/{id}', [ThreadController::class, 'destroy'])->name('thread.destroy');
+
 
 
 Route::prefix('forum')->name('forum.')->group(function () {

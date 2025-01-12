@@ -40,6 +40,19 @@
                             @endforeach
                         </div>
                     </div>
+
+                    <!-- Admin Delete Button (Only for Admins) -->
+                    @auth
+                        @if(Auth::user()->isAdmin()) <!-- Użycie metody isAdmin() -->
+                            <form action="{{ route('thread.destroy', $thread->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this thread?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+                                    Delete Thread
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             @empty
                 <p class="text-gray-500">No threads available. Be the first to create one!</p>

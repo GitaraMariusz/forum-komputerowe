@@ -10,7 +10,7 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $threads = Thread::with('categories')->paginate(5);
+        $threads = Thread::with('categories')->paginate(4);
         return view('forum.index', compact('threads'));
     }
 

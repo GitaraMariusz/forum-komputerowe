@@ -13,6 +13,23 @@
                 <div class="p-4 border border-gray-200 rounded-md mb-4">
                     <p class="text-gray-700">{{ $post->content }}</p>
                     <p class="text-sm text-gray-500">Posted by {{ $post->user->name }} {{ $post->created_at->diffForHumans() }}</p>
+
+                    <!-- Like Button -->
+                    @auth
+                        <form action="{{ route('post.like', $post->id) }}" method="POST" class="mt-2">
+                            @csrf
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                @if ($post->likes->where('user_id', auth()->id())->count() > 0)
+                                    Unlike
+                                @else
+                                    Like
+                                @endif
+                            </button>
+                        </form>
+                    @endauth
+
+                    <!-- Display Like Count -->
+                    <p class="text-sm text-gray-500 mt-1">{{ $post->likes->count() }} likes</p>
                 </div>
             @empty
                 <p class="text-gray-500">No posts yet. Be the first to reply!</p>

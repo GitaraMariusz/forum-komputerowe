@@ -40,6 +40,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/post/{post}', [AdminController::class, 'destroyPost'])->name('post.destroy');
 });
 
+Route::middleware('auth', 'admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('reported-posts', [AdminController::class, 'reportedPosts'])->name('reported-posts');
+    Route::delete('delete-reported-post/{id}', [AdminController::class, 'deleteReportedPost'])->name('delete-reported-post');
+});
+
 Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 });

@@ -8,6 +8,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostReportController;
+use App\Http\Controllers\CommunityController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/forum', [ForumController::class, 'index'])->name('forum');
@@ -19,6 +20,12 @@ Route::prefix('forum')->name('forum.')->group(function () {
     Route::get('/', [ForumController::class, 'index'])->name('index');
     Route::get('/create', [ForumController::class, 'create'])->middleware('auth')->name('create');
     Route::post('/store', [ForumController::class, 'store'])->middleware('auth')->name('store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/community', [CommunityController::class, 'index'])->name('community.index'); // List of users
+    Route::get('/community/{user}', [CommunityController::class, 'show'])->name('community.show'); // Show user's messages
+    Route::post('/community/{user}/message', [CommunityController::class, 'sendMessage'])->name('community.sendMessage'); // Send a message
 });
 
 

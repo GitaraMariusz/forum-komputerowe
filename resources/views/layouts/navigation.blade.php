@@ -18,6 +18,11 @@
                     <x-nav-link :href="route('forum.index')" :active="request()->routeIs('forum')">
                         {{ __('Forum') }}
                     </x-nav-link>
+
+                    <!-- Add Community Link -->
+                    <x-nav-link :href="route('community.index')" :active="request()->routeIs('community.index')">
+                        {{ __('Community') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -86,6 +91,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <!-- Add Community Link for mobile -->
+            <x-responsive-nav-link :href="route('community.index')" :active="request()->routeIs('community.index')">
+                {{ __('Community') }}
             </x-responsive-nav-link>
         </div>
 

@@ -7,10 +7,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\PostReportController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/forum', [ForumController::class, 'index'])->name('forum');
 Route::get('/forum/thread/{thread}', [ForumController::class, 'show'])->name('forum.show');
+Route::post('/post/{post}/report', [PostReportController::class, 'store'])->name('post.report');
 
 
 Route::prefix('forum')->name('forum.')->group(function () {

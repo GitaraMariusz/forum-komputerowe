@@ -30,6 +30,17 @@
 
                     <!-- Display Like Count -->
                     <p class="text-sm text-gray-500 mt-1">{{ $post->likes->count() }} likes</p>
+
+                    <!-- Report Post Form -->
+                    @auth
+                        <form action="{{ route('post.report', $post->id) }}" method="POST" class="mt-2">
+                            @csrf
+                            <textarea name="reason" placeholder="Reason for reporting" rows="3" class="block w-full border border-gray-300 rounded-md p-2 mt-2" required></textarea>
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-2">
+                                Report Post
+                            </button>
+                        </form>
+                    @endauth
                 </div>
             @empty
                 <p class="text-gray-500">No posts yet. Be the first to reply!</p>

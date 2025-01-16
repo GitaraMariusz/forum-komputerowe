@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.font-small {
+    font-size: 0.8rem;
+  }
+
+.font-small select, .font-small button, .font-small a {
+   font-size: 0.8rem;
+}
+
+.font-large {
+   font-size: 1.3rem;
+}
+
+.font-large select, .font-large button, .font-large a {
+   font-size: 1.3rem;
+}
+select, button {
+   font-size: 1rem;
+  padding-right: 1.5rem;
+}
+.contrast {
+   filter: invert(1);
+}
+* {
+   color: black;
+ }

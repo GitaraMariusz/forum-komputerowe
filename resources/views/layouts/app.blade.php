@@ -32,5 +32,6 @@
                 @yield('content')  <!-- This is where the page content will be injected -->
             </main>
         </div>
+        @vite(['resources/js/theme.js'])
     </body>
 </html>

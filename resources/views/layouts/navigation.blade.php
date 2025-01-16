@@ -36,7 +36,7 @@
             </div>
 
             <!-- Authentication Links -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 @guest
                     <!-- Login Link -->
                     <a href="{{ route('login') }}" class="text-gray-500 hover:text-gray-700">
@@ -44,11 +44,18 @@
                     </a>
 
                     <!-- Register Link -->
-                    <a href="{{ route('register') }}" class="ml-4 text-gray-500 hover:text-gray-700">
+                    <a href="{{ route('register') }}" class="ml-4 text-gray-500 hover:text-gray-700 pr-10">
                         {{ __('Register') }}
                     </a>
                 @endguest
+                <select id="fontSizeSelector" class="bg-gray-100 border rounded-md py-1 px-2 text-gray-700 pr-10">
+                <option value="small">Smaller font</option>
+                    <option value="normal">Default font</option>
+                <option value="large">Bigger font</option>
+                </select>
 
+    
+                <button id="contrastButton" class="bg-gray-100 border rounded-md py-1 px-2 text-gray-700">Change contrast</button>
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -80,7 +87,7 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                @endauth
+                @endauth                
             </div>
         </div>
     </div>

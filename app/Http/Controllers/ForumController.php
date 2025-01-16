@@ -8,11 +8,19 @@ use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
-    public function index()
-    {
-        $threads = Thread::with('categories')->paginate(4);
+    public function index(Request $request)
+      {
+        $search = $request->input('search');
+
+         $threads = Thread::when($search, function ($query, $search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                     ->orWhere('content', 'like', '%' . $search . '%');
+              })->with('categories')->paginate(4);
+
+
         return view('forum.index', compact('threads'));
-    }
+      }
+
 
     public function create()
     {

@@ -11,7 +11,7 @@ class CommunityController extends Controller
 {
     public function index()
     {
-        $users = User::where('id', '!=', Auth::id())->get();
+        $users = User::where('id', '!=', Auth::id())->paginate(10);
         return view('community.index', compact('users'));
     }
 

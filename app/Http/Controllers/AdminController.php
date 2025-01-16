@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function index()
 {
     // Pobieranie wszystkich użytkowników i postów
-    $users = User::all();
+    $users = User::paginate(10);
     $posts = Post::all();
 
     return view('admin.dashboard', compact('users', 'posts'));

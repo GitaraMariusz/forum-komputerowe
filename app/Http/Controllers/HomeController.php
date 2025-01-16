@@ -10,7 +10,7 @@ class HomeController extends Controller
     // Display the homepage with recent threads and categories
     public function index()
     {
-        // Get the 5 most recent threads
+        // Get the 3 most recent threads
         $threads = Thread::latest()->take(3)->get();
         
         // Get all categories

@@ -10,14 +10,20 @@ use App\Models\PostReport;
 class AdminController extends Controller
 {
     // Metoda do wyświetlania dashboarda
-    public function index()
-{
-    // Pobieranie wszystkich użytkowników i postów
-    $users = User::paginate(10);
-    $posts = Post::all();
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
 
-    return view('admin.dashboard', compact('users', 'posts'));
-}
+        $users = User::when($search, function ($query, $search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+        })->paginate(10);
+
+
+        $posts = Post::all();
+
+       return view('admin.dashboard', compact('users', 'posts','search'));
+    }
 
     public function destroyUser(User $user)
     {

@@ -30,9 +30,9 @@ Route::prefix('forum')->name('forum.')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/community', [CommunityController::class, 'index'])->name('community.index'); // List of users
-    Route::get('/community/{user}', [CommunityController::class, 'show'])->name('community.show'); // Show user's messages
-    Route::post('/community/{user}/message', [CommunityController::class, 'sendMessage'])->name('community.sendMessage'); // Send a message
+    Route::get('/community', [CommunityController::class, 'index'])->name('community.index'); 
+    Route::get('/community/{user}', [CommunityController::class, 'show'])->name('community.show'); 
+    Route::post('/community/{user}/message', [CommunityController::class, 'sendMessage'])->name('community.sendMessage');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -46,6 +46,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware('auth', 'admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('reported-posts', [AdminController::class, 'reportedPosts'])->name('reported-posts');
     Route::delete('delete-reported-post/{id}', [AdminController::class, 'deleteReportedPost'])->name('delete-reported-post');
+    Route::delete('/reported-posts/{id}/delete-report', [AdminController::class, 'deleteReport'])->name('delete-report');
 });
 
 Route::middleware('auth')->group(function () {

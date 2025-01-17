@@ -59,4 +59,11 @@ class AdminController extends Controller
 
         return redirect()->route('admin.reported-posts')->with('success', 'Post został usunięty.');
     }
+    public function deleteReport($id)
+    {
+        $postReport = PostReport::where('post_id', $id)->firstOrFail();
+        $postReport->delete();
+
+        return redirect()->route('admin.reported-posts')->with('success', 'Zgłoszenie zostało usunięte.');
+    }
 }

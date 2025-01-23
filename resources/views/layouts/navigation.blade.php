@@ -24,6 +24,13 @@
                         {{ __('Community') }}
                     </x-nav-link>
 
+                    <!-- **Add Watched Threads Link** -->
+                    @auth
+                        <x-nav-link :href="route('forum.watched')" :active="request()->routeIs('forum.watched')">
+                            {{ __('Watched Threads') }}
+                        </x-nav-link>
+                    @endauth
+
                     <!-- Admin Link for Admin Users -->
                     @auth
                         @if(Auth::user()->isAdmin())
@@ -54,7 +61,7 @@
                 <option value="large">Bigger font</option>
                 </select>
 
-    
+
                 <button id="contrastButton" class="bg-gray-100 border rounded-md py-1 px-2 text-gray-700">Change contrast</button>
                 @auth
                     <x-dropdown align="right" width="48">
@@ -87,7 +94,7 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                @endauth                
+                @endauth
             </div>
         </div>
     </div>
@@ -98,11 +105,22 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('forum.index')" :active="request()->routeIs('forum')">
+                {{ __('Forum') }}
+            </x-responsive-nav-link>
 
             <!-- Add Community Link for mobile -->
             <x-responsive-nav-link :href="route('community.index')" :active="request()->routeIs('community.index')">
                 {{ __('Community') }}
             </x-responsive-nav-link>
+
+            <!-- **Add Watched Threads Link for mobile** -->
+            @auth
+                <x-responsive-nav-link :href="route('forum.watched')" :active="request()->routeIs('forum.watched')">
+                    {{ __('Watched Threads') }}
+                </x-responsive-nav-link>
+            @endauth
+
 
             <!-- Admin Link for Admin Users in Mobile View -->
             @auth

@@ -20,26 +20,29 @@ Route::get('/forum', [ForumController::class, 'index'])->name('forum');
 Route::get('/forum/thread/{thread}', [ForumController::class, 'show'])->name('forum.show');
 Route::post('/post/{post}/report', [PostReportController::class, 'store'])->name('post.report');
 Route::delete('/thread/{id}', [ThreadController::class, 'destroy'])->name('thread.destroy');
-
+Route::get('/forum/watched', [ForumController::class, 'watchedThreads'])->middleware('auth')->name('forum.watched');
 
 
 Route::prefix('forum')->name('forum.')->group(function () {
     Route::get('/', [ForumController::class, 'index'])->name('index');
     Route::get('/create', [ForumController::class, 'create'])->middleware('auth')->name('create');
     Route::post('/store', [ForumController::class, 'store'])->middleware('auth')->name('store');
+    // Dodane route'y dla obserwowania wątków
+    Route::post('/threads/{thread}/watch', [ForumController::class, 'watchThread'])->middleware('auth')->name('watch');
+    Route::delete('/threads/{thread}/unwatch', [ForumController::class, 'unwatchThread'])->middleware('auth')->name('unwatch');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/community', [CommunityController::class, 'index'])->name('community.index'); 
-    Route::get('/community/{user}', [CommunityController::class, 'show'])->name('community.show'); 
+    Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
+    Route::get('/community/{user}', [CommunityController::class, 'show'])->name('community.show');
     Route::post('/community/{user}/message', [CommunityController::class, 'sendMessage'])->name('community.sendMessage');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    
+
     Route::delete('/user/{user}', [AdminController::class, 'destroyUser'])->name('user.destroy');
-    
+
     Route::delete('/post/{post}', [AdminController::class, 'destroyPost'])->name('post.destroy');
 });
 

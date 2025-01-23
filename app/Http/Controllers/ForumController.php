@@ -34,8 +34,8 @@ class ForumController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'category_ids' => 'required|array', 
-            'category_ids.*' => 'exists:categories,id' 
+            'category_ids' => 'required|array',
+            'category_ids.*' => 'exists:categories,id'
         ]);
 
         $thread = Thread::create([
@@ -53,7 +53,25 @@ class ForumController extends Controller
     {
         // Get the thread by ID
         $thread = Thread::findOrFail($id);
-        
+
         return view('forum.show', compact('thread'));
     }
+
+    // Dodane metody dla obserwowania wątków
+    public function watchThread(Request $request, Thread $thread)
+    {
+        auth()->user()->threadsWatched()->attach($thread);
+        return back()->with('success', 'Wątek obserwowany!');
+    }
+
+    public function unwatchThread(Request $request, Thread $thread)
+    {
+        auth()->user()->threadsWatched()->detach($thread);
+        return back()->with('success', 'Przestałeś obserwować wątek.');
+    }
+    public function watchedThreads()
+{
+    $watchedThreads = auth()->user()->threadsWatched()->with('categories', 'user')->latest()->paginate(10); 
+    return view('forum.watched', compact('watchedThreads'));
+}
 }

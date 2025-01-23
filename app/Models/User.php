@@ -131,5 +131,10 @@ class User extends Authenticatable
     {
         return $query->where('role', 'user');
     }
+    public function threadsWatched()
+    {
+        return $this->belongsToMany(Thread::class, 'thread_watches', 'user_id', 'thread_id')
+                    ->withTimestamps();
+    }
 }
 

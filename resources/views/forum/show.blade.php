@@ -6,6 +6,27 @@
         <p class="text-gray-700 mb-6">{{ $thread->content }}</p>
         <p class="text-sm text-gray-500">Posted {{ $thread->created_at->diffForHumans() }}</p>
 
+        <!-- Watch/Unwatch Button -->
+        @auth
+            @if (auth()->user()->threadsWatched->contains($thread))
+                <form action="{{ route('forum.unwatch', $thread->id) }}" method="POST" class="mb-4">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+                        Stop following
+                    </button>
+                </form>
+            @else
+                <form action="{{ route('forum.watch', $thread->id) }}" method="POST" class="mb-4">
+                    @csrf
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Follow thread
+                    </button>
+                </form>
+            @endif
+        @endauth
+
+
         <!-- Display Existing Posts -->
         <div class="mt-6">
             <h2 class="text-xl font-bold mb-4">Posts</h2>
